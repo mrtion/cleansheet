@@ -1,0 +1,254 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+/* ============================================================
+   CleanSheet 主题令牌
+   来源：UI 风格指南第 13 章（逐字复制）+ 2.2 节语义色/中性色表
+   规则：全站禁止硬编码色值，所有组件必须使用以下令牌。
+   ============================================================ */
+@theme {
+  /* 品牌主色 Emerald（指南 13 章逐字复制；300/400/800 取标准 emerald 补齐色阶，供组件 shade 类使用） */
+  --color-primary-50:  #ECFDF5;
+  --color-primary-100: #D1FAE5;
+  --color-primary-200: #A7F3D0;
+  --color-primary-300: #6EE7B7;
+  --color-primary-400: #34D399;
+  --color-primary-500: #10B981;
+  --color-primary-600: #059669;
+  --color-primary-700: #047857;
+  --color-primary-800: #065F46;
+  --color-primary-900: #064E3B;
+
+  /* 异常高亮（数据单元格用） */
+  --color-anomaly-missing-bg: #FFF1F2;
+  --color-anomaly-missing-fg: #BE123C;
+  --color-anomaly-date-bg:    #FFFBEB;
+  --color-anomaly-date-fg:    #B45309;
+  --color-anomaly-amount-bg:  #F5F3FF;
+  --color-anomaly-amount-fg:  #6D28D9;
+  --color-anomaly-dup-bg:     #F0F9FF;
+  --color-anomaly-dup-fg:     #0369A1;
+
+  /* 语义色（指南 2.2 表单值；色阶取对应 Tailwind 色系补齐，供组件 shade 类使用） */
+  --color-success: #059669;
+  --color-success-50: #ECFDF5;
+  --color-success-100: #D1FAE5;
+  --color-success-500: #10B981;
+  --color-success-600: #059669;
+  --color-success-700: #047857;
+
+  --color-warning: #D97706;
+  --color-warning-50: #FFFBEB;
+  --color-warning-100: #FEF3C7;
+  --color-warning-500: #F59E0B;
+  --color-warning-600: #D97706;
+  --color-warning-700: #B45309;
+
+  --color-danger: #E11D48;
+  --color-danger-50: #FFF1F2;
+  --color-danger-100: #FFE4E6;
+  --color-danger-500: #F43F5E;
+  --color-danger-600: #E11D48;
+  --color-danger-700: #BE123C;
+
+  --color-info: #0284C7;
+  --color-info-50: #F0F9FF;
+  --color-info-100: #E0F2FE;
+  --color-info-500: #0EA5E9;
+  --color-info-600: #0284C7;
+  --color-info-700: #0369A1;
+
+  /* 中性色 Zinc（指南 2.2 表；300/600/800 取标准 zinc 补齐色阶） */
+  --color-neutral-50:  #FAFAFA;
+  --color-neutral-100: #F4F4F5;
+  --color-neutral-200: #E4E4E7;
+  --color-neutral-300: #D4D4D8;
+  --color-neutral-400: #A1A1AA;
+  --color-neutral-500: #71717A;
+  --color-neutral-600: #52525B;
+  --color-neutral-700: #3F3F46;
+  --color-neutral-800: #27272A;
+  --color-neutral-900: #18181B;
+
+  /* 字体 */
+  --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", Consolas, monospace;
+
+  /* 圆角与阴影 */
+  --radius-control: 8px;
+  --radius-card: 12px;
+  --radius-modal: 16px;
+
+  /* 动效 */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-enter: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-neutral-50 text-neutral-700 font-sans;
+  }
+
+  /* 键盘焦点：2px 主色外描边（WCAG 2.1 AA，指南 10 章） */
+  :focus-visible {
+    outline: 2px solid var(--color-primary-600);
+    outline-offset: 2px;
+  }
+
+  /* 动效克制：尊重 prefers-reduced-motion（指南 7 章） */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* 财务数字：等宽数字 + 千分位排版（指南 3.3） */
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   博客正文排版：CMS 渲染的 Markdown HTML 共用
+   （后台 /admin/posts 预览 + 前台 /blog/[slug]）
+   ============================================================ */
+.md-content {
+  color: var(--color-neutral-600);
+  line-height: 2;
+}
+.md-content > *:first-child {
+  margin-top: 0;
+}
+.md-content h2 {
+  margin-top: 2.5rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  color: var(--color-neutral-900);
+}
+.md-content h3 {
+  margin-top: 2rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  color: var(--color-neutral-900);
+}
+.md-content h4 {
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-neutral-900);
+}
+.md-content p {
+  margin-top: 1rem;
+}
+.md-content ul,
+.md-content ol {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+}
+.md-content ul {
+  list-style-type: disc;
+}
+.md-content ol {
+  list-style-type: decimal;
+}
+.md-content li {
+  margin-top: 0.5rem;
+}
+.md-content li::marker {
+  color: var(--color-neutral-400);
+}
+.md-content a {
+  font-weight: 500;
+  color: var(--color-primary-700);
+}
+.md-content a:hover {
+  text-decoration: underline;
+}
+.md-content strong {
+  font-weight: 600;
+  color: var(--color-neutral-900);
+}
+.md-content code:not(pre code) {
+  border-radius: 0.375rem;
+  background: var(--color-neutral-100);
+  padding: 0.125rem 0.375rem;
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+}
+.md-content pre {
+  margin-top: 1rem;
+  overflow-x: auto;
+  border-radius: var(--radius-card);
+  background: var(--color-neutral-900);
+  padding: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.5rem;
+  color: var(--color-neutral-300);
+}
+.md-content pre code {
+  background: transparent;
+  padding: 0;
+}
+.md-content blockquote {
+  margin-top: 1rem;
+  border-left: 4px solid var(--color-primary-500);
+  background: var(--color-neutral-50);
+  padding: 0.75rem 1rem;
+  color: var(--color-neutral-600);
+}
+.md-content img {
+  margin-top: 1rem;
+  max-width: 100%;
+  border-radius: var(--radius-card);
+}
+.md-content table {
+  margin-top: 1rem;
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.md-content thead tr {
+  border-bottom: 1px solid var(--color-neutral-200);
+  text-align: left;
+  color: var(--color-neutral-500);
+}
+.md-content th {
+  padding: 0.75rem 1rem 0.75rem 0;
+  font-weight: 500;
+}
+.md-content tbody tr {
+  border-bottom: 1px solid var(--color-neutral-100);
+}
+.md-content tbody tr:last-child {
+  border-bottom: 0;
+}
+.md-content td {
+  padding: 0.75rem 1rem 0.75rem 0;
+}
+.md-content td:first-child {
+  font-weight: 500;
+  color: var(--color-neutral-900);
+}
+.md-content hr {
+  margin: 2rem 0;
+  border-color: var(--color-neutral-200);
+}
+.md-content .table-wrap {
+  overflow-x: auto;
+}

@@ -1,0 +1,29 @@
+{
+  // CleanSheet — 正式环境部署配置
+  // 项目域名：tools.daintyagent.com（zone: daintyagent.com）
+  // 部署：npx wrangler deploy --config wrangler.prod.jsonc
+  "name": "cleansheet",
+  "account_id": "dec6981c3e06935f377720a1185d2a2f",
+  "main": ".output/server/index.mjs",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": { "directory": ".output/public" },
+  "kv_namespaces": [
+    { "binding": "KV", "id": "2304e8af85204bd7ada221d0627653d4" }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "cleansheet",
+      "database_id": "eecfd1a1-b5c9-4985-91fc-9339905fe1ea",
+      "migrations_dir": "server/db/migrations"
+    }
+  ],
+  "routes": [
+    { "pattern": "tools.daintyagent.com/*", "zone_name": "daintyagent.com" }
+  ],
+  "vars": {
+    "NUXT_PUBLIC_APP_URL": "https://tools.daintyagent.com"
+    // 管理后台：用 `wrangler secret put ADMIN_EMAILS --config wrangler.prod.jsonc` 设置管理员邮箱（逗号分隔）
+  }
+}

@@ -1,0 +1,6 @@
+Name,Email,Currency,Total,Lineitem sku,Lineitem name,Paid at
+#1001,buyer1@example.com,USD,128.00,SKU-A01,无线蓝牙耳机,2026-09-03 10:22:11
+#1002,buyer2@example.com,USD,64.50,SKU-B02,手机支架,2026-09-04 14:05:33
+#1003,buyer3@example.com,EUR,89.97,SKU-C03,智能台灯,2026-09-05 09:12:47
+#1004,buyer4@example.com,USD,45.00,SKU-A01,无线蓝牙耳机,2026-09-06 20:44:02
+#1005,buyer5@example.com,USD,199.95,SKU-G07,户外露营灯,2026-09-07 11:30:59
