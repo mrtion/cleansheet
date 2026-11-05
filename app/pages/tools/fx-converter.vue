@@ -31,5 +31,24 @@ useSeoMeta({
   ogDescription: () => t('tools.fx.seoOgDesc'),
   ogImage: `${siteUrl}/og-cover.png`
 });
-useHead({ link: [{ rel: 'canonical', href: `${siteUrl}/tools/fx-converter` }] });
+useHead({
+  link: [{ rel: 'canonical', href: `${siteUrl}/tools/fx-converter` }],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() =>
+        JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: t('tools.fx.title'),
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'Web',
+          description: t('tools.fx.seoDesc'),
+          url: `${siteUrl}/tools/fx-converter`,
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+        })
+      )
+    }
+  ]
+});
 </script>

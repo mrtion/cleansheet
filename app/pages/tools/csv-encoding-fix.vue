@@ -31,5 +31,24 @@ useSeoMeta({
   ogDescription: () => t('tools.csvFix.seoOgDesc'),
   ogImage: `${siteUrl}/og-cover.png`
 });
-useHead({ link: [{ rel: 'canonical', href: `${siteUrl}/tools/csv-encoding-fix` }] });
+useHead({
+  link: [{ rel: 'canonical', href: `${siteUrl}/tools/csv-encoding-fix` }],
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: computed(() =>
+        JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: t('tools.csvFix.title'),
+          applicationCategory: 'BusinessApplication',
+          operatingSystem: 'Web',
+          description: t('tools.csvFix.seoDesc'),
+          url: `${siteUrl}/tools/csv-encoding-fix`,
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+        })
+      )
+    }
+  ]
+});
 </script>

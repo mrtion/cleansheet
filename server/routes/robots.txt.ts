@@ -2,7 +2,7 @@
 export default defineEventHandler((event) => {
   const reqUrl = getRequestURL(event);
   const base = `${reqUrl.protocol}//${reqUrl.host}`;
-  const body = `User-agent: *\nAllow: /\n\nSitemap: ${base}/sitemap.xml\n`;
+  const body = `User-agent: *\nContent-Signal: search=yes, ai-input=no, ai-train=no\nAllow: /\n\nSitemap: ${base}/sitemap.xml\n`;
   setResponseHeader(event, 'content-type', 'text/plain; charset=utf-8');
   return body;
 });
